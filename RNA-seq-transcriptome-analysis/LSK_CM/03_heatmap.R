@@ -1,23 +1,28 @@
+analysis_dir <- normalizePath(".", winslash = "/", mustWork = TRUE)
+analysis_output_dir <- file.path(analysis_dir, "output")
+dir.create(analysis_output_dir, recursive = TRUE, showWarnings = FALSE)
 
-# load package
 {
 library(circlize)
 library(ggplot2)
 library(ggbiplot)
+# install.packages("colorRamp2")
 library(colorRamp2)
 library(ComplexHeatmap)
 }
 
 # load data
-setwd(r'(C:\Users\yufu\OneDrive - City of Hope National Medical Center\Documents\HDAC8)')
+setwd(analysis_dir)
 cpm.all<-readRDS("./counts/20230425_cpm.count.all.rds")
 metadata.all<-readRDS("./metadata/20230425_metadata.all.rds")
 
 adjusted.cpm.all<-cpm.all
 
-# 20230906 only have CHW-1,3,4 and WT-1,3,4
-CHW.IR.cpm<-cpm.all$df[,c(1,3:5,7:9,11:13,15:16)]
-CHW.IR.meta<-metadata.all[c(1,3:5,7:9,11:13,15:16),]
+# split cohort:
+cm_count_columns <- c(1, 3:9, 11:16)
+CHW.IR.cpm<-cpm.all$df[,cm_count_columns]
+CHW.IR.meta<-metadata.all
+stopifnot(ncol(CHW.IR.cpm) == nrow(CHW.IR.meta))
 
 adjusted.cpm.all$df<-CHW.IR.cpm
 
@@ -57,7 +62,7 @@ ComplexHeatmap::Heatmap(var_top_100,
 }
 
 # draw heatmap for WT, CHW, NIR, IR:
-setwd("C:/Users/yufu/OneDrive - City of Hope National Medical Center/Documents/HDAC8/20230906-CHW-134/output")
+setwd(analysis_output_dir)
 list.files()
 
 # load data
@@ -83,9 +88,9 @@ union_list<-union_list2
 union_list<-union_list3
 # cpm
 getwd()
-cpm.count.all<-readRDS("..\\..\\counts\\20230425_cpm.count.all.rds")
+cpm.count.all<-readRDS(file.path(analysis_dir, "counts", "20230425_cpm.count.all.rds"))
 
-cpm.count.all$df<-cpm.count.all$df[,c(1,3:5,7:9,11:13,15:16)]
+cpm.count.all$df<-cpm.count.all$df[,cm_count_columns]
 
 # # 1. get top CV genes
 # sd <- apply(cpm.count.all$df,1,sd)
@@ -220,7 +225,7 @@ write.xlsx(clu_df, file = paste0(Sys.Date(),"-gene-clusters5-com34-k3.xlsx"),
 
 
 ######## draw heatmap for CM vs Ctrl (NIR) and cm vs Ctrl (IR) #########
-setwd("C:/Users/yufu/OneDrive - City of Hope National Medical Center/Documents/HDAC8/20230906-CHW-134/output")
+setwd(analysis_output_dir)
 list.files()
 
 # load data
@@ -245,9 +250,9 @@ union_list<-union_list12
 
 # cpm
 getwd()
-cpm.count.all<-readRDS("..\\..\\counts\\20230425_cpm.count.all.rds")
+cpm.count.all<-readRDS(file.path(analysis_dir, "counts", "20230425_cpm.count.all.rds"))
 
-cpm.count.all$df<-cpm.count.all$df[,c(1,3:5,7:9,11:13,15:16)]
+cpm.count.all$df<-cpm.count.all$df[,cm_count_columns]
 
 # # 1. get top CV genes
 # sd <- apply(cpm.count.all$df,1,sd)
@@ -367,4 +372,3 @@ table(clu_df$Cluster)
 write.xlsx(clu_df, file = paste0(Sys.Date(),"-gene-clusters2-com12.xlsx"),
            sheetName = "Sheet1", 
            col.names = TRUE, row.names = TRUE, append = FALSE)
-

@@ -1,4 +1,70 @@
-.Rproj.user
+# R session and project files
 .Rhistory
 .RData
 .Ruserdata
+.Rproj.user/
+renv/library/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Editors and operating systems
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs and scheduler output
+log/
+logs/
+*.log
+*.err
+*.out
+slurm-*.out
+
+# Sequencing and alignment data
+*.fastq
+*.fastq.gz
+*.fq
+*.fq.gz
+*.bam
+*.bai
+*.cram
+*.crai
+
+# Large/intermediate analysis objects
+*.RDS
+*.rds
+*.rda
+*.rdata
+*.h5
+*.h5ad
+*.loom
+
+# Small, publication-safe cohort metadata objects included intentionally
+!RNA-seq-transcriptome-analysis/MV4-11_K562/metadata/2025-04-28_metadata.all.rds
+!RNA-seq-transcriptome-analysis/LSK_HDAC8-OE/metadata/20250326_metadata.all.rds
+!RNA-seq-transcriptome-analysis/LSK_CM/metadata/20230425_metadata.all.rds
+
+# Generated analysis output
+output/
+outputs/
+results/
+tmp/
+temp/
+
+# Generated documents and images
+*.pptx
+*.pdf
+*.png
+*.tiff
+*.svg
+
+# Local path/settings files
+.env
+.Renviron
+local_paths.R
+local_settings.R

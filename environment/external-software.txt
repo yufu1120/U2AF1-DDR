@@ -1,0 +1,7 @@
+rMATS 4.1.2
+rmats2sashimiplot (2.0.4)
+Singularity
+SLURM
+Python 3
+Poppler pdftoppm
+Java runtime (required by the R xlsx package)
