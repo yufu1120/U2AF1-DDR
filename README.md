@@ -26,11 +26,6 @@ The repository intentionally keeps **separate scripts for each experimental coho
 - LSK CM
 
 
-## Important scope notes
-
-- Raw FASTQ, BAM, rMATS output, count matrices, and large R objects are not included. Small sample-metadata RDS files are included.
-- Institutional filesystem paths have been replaced with repository-relative paths. Run each cohort script from its cohort analysis directory and place required files under the local paths named in that script, such as `./counts/`, `./metadata/`, `./lnk/`, `./genome.gtf`, or `./refFlat_gene_mm10_200213.gtf`.
-
 ## General execution order
 
 For splicing analyses:
